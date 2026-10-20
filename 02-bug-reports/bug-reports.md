@@ -96,8 +96,8 @@ See screenshot: `evidence/bug-02-add-to-cart.png`
 9. Click `Continue`.
 
 ### Test Data
-- First Name: Ines
-- Last Name: Uwase
+- First Name: Test
+- Last Name: User
 - Postal Code: 00100
 
 ### Expected Result

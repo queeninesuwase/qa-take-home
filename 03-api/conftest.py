@@ -27,8 +27,8 @@ def auth_token(base_url):
 @pytest.fixture
 def booking_data():
     return {
-        "firstname": "Queen",
-        "lastname": "Uwase",
+        "firstname": "Test",
+        "lastname": "User",
         "totalprice": 250,
         "depositpaid": True,
         "bookingdates": {

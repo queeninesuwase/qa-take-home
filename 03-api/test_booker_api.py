@@ -22,7 +22,7 @@ def test_create_auth_token(base_url):
 def test_invalid_auth_credentials(base_url):
     response = requests.post(
         f"{base_url}/auth",
-        json={"username": "queen", "password": "queen123"},
+        json={"username": "invalid_user", "password": "invalid_password"},
         timeout=10,
     )
 
@@ -67,8 +67,8 @@ def test_update_booking_with_put(base_url, auth_token, created_booking):
     booking_id = created_booking["booking_id"]
 
     updated_booking = {
-        "firstname": "Queen",
-        "lastname": "Ines",
+        "firstname": "Test",
+        "lastname": "Example",
         "totalprice": 350,
         "depositpaid": False,
         "bookingdates": {"checkin": "2026-11-12", "checkout": "2026-11-18"},
@@ -87,8 +87,8 @@ def test_update_booking_with_put(base_url, auth_token, created_booking):
 
     data = response.json()
 
-    assert data["firstname"] == "Queen"
-    assert data["lastname"] == "Ines"
+    assert data["firstname"] == "Test"
+    assert data["lastname"] == "Example"
     assert data["totalprice"] == 350
     assert data["depositpaid"] is False
     assert data["bookingdates"]["checkin"] == "2026-11-12"
@@ -99,7 +99,7 @@ def test_update_booking_with_put(base_url, auth_token, created_booking):
 def test_partial_update_booking_with_patch(base_url, auth_token, created_booking):
     booking_id = created_booking["booking_id"]
 
-    partial_update = {"firstname": "Queen", "additionalneeds": "Dinner"}
+    partial_update = {"firstname": "Test", "additionalneeds": "Dinner"}
 
     response = requests.patch(
         f"{base_url}/booking/{booking_id}",
@@ -113,7 +113,7 @@ def test_partial_update_booking_with_patch(base_url, auth_token, created_booking
 
     data = response.json()
 
-    assert data["firstname"] == "Queen"
+    assert data["firstname"] == "Test"
     assert data["additionalneeds"] == "Dinner"
 
 
@@ -138,7 +138,7 @@ def test_delete_booking(base_url, auth_token, created_booking):
     reason="API returns 500 instead of a client validation error for missing booking fields"
 )
 def test_create_booking_with_missing_fields(base_url):
-    incomplete_booking = {"firstname": "Queen", "lastname": "Uwase"}
+    incomplete_booking = {"firstname": "Test", "lastname": "User"}
 
     response = requests.post(f"{base_url}/booking", json=incomplete_booking, timeout=10)
 
@@ -152,8 +152,8 @@ def test_create_booking_with_missing_fields(base_url):
 )
 def test_create_booking_with_wrong_data_types(base_url):
     invalid_booking = {
-        "firstname": "Queen",
-        "lastname": "Uwase",
+        "firstname": "Test",
+        "lastname": "User",
         "totalprice": "two hundred",
         "depositpaid": "yes",
         "bookingdates": {"checkin": "2026-11-10", "checkout": "2026-11-15"},
@@ -178,8 +178,8 @@ def test_update_booking_without_token(base_url, created_booking):
     booking_id = created_booking["booking_id"]
 
     updated_booking = {
-        "firstname": "Queen",
-        "lastname": "Uwase",
+        "firstname": "Test",
+        "lastname": "User",
         "totalprice": 400,
         "depositpaid": True,
         "bookingdates": {
@@ -202,8 +202,8 @@ def test_update_booking_with_wrong_token(base_url, created_booking):
     booking_id = created_booking["booking_id"]
 
     updated_booking = {
-        "firstname": "Queen",
-        "lastname": "Uwase",
+        "firstname": "Test",
+        "lastname": "User",
         "totalprice": 400,
         "depositpaid": True,
         "bookingdates": {
